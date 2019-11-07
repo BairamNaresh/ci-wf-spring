@@ -1,0 +1,46 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.0.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+	id "no.nils.wsdl2java" version "0.10"
+}
+
+group = 'com.nielsen'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	jaxb
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+}
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+	implementation 'org.springframework.ws:spring-ws-security'
+	compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.10.0'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}
+
+wsdl2java{
+	wsdlsToGenerate = [
+			['-p','com.nielsen.confirmit.webservices.authoring', "$projectDir/src/main/resources/wsdl/Authoring_18_0.wsdl"],
+			['-p','com.nielsen.confirmit.webservices.logon', "$projectDir/src/main/resources/wsdl/logon_18_0.wsdl"],
+	]
+	generatedWsdlDir = file("$projectDir/src/main/java")
+	wsdlDir = file("$projectDir/src/main/resources/wsdl")
+}
+
+test {
+	useJUnitPlatform()
+}
