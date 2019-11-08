@@ -1,5 +1,6 @@
 package com.nielsen.confirmit.exceptionHandler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.client.WebServiceClientException;
 import org.springframework.ws.client.support.interceptor.ClientInterceptor;
@@ -8,6 +9,7 @@ import org.springframework.ws.soap.saaj.SaajSoapMessage;
 
 import javax.xml.soap.*;
 
+@Slf4j
 public class SoapClientInterceptor implements ClientInterceptor {
 
     @Override
@@ -22,19 +24,19 @@ public class SoapClientInterceptor implements ClientInterceptor {
 
     @Override
     public boolean handleFault(MessageContext messageContext) throws WebServiceClientException {
-//        logger.info("intercepted a fault.");
+        log.info("intercepted a fault.");
         WebServiceMessage message = messageContext.getResponse();
-        SaajSoapMessage saajSoapMessage = (SaajSoapMessage)message;
+        SaajSoapMessage saajSoapMessage = (SaajSoapMessage) message;
         SOAPMessage soapMessage = saajSoapMessage.getSaajMessage();
         SOAPPart soapPart = soapMessage.getSOAPPart();
         try {
             SOAPEnvelope soapEnvelope = soapPart.getEnvelope();
             SOAPBody soapBody = soapEnvelope.getBody();
             SOAPFault soapFault = soapBody.getFault();
-//            logger.error(String.format("Error occurred while invoking web service - %s ",soapFault.getFaultString()));
-            throw new RuntimeException(String.format("Error occurred while invoking web service - %s ",soapFault.getFaultString()));
+            log.error(String.format("Error occurred while invoking web service - %s ", soapFault.getFaultString()));
+            throw new RuntimeException(String.format("Error occurred while invoking web service - %s ", soapFault.getFaultString()));
         } catch (SOAPException e) {
-            e.printStackTrace();
+            log.error(String.format("Error occurred while getting the fault string - %s ", e.getMessage()));
         }
         return true;
     }
