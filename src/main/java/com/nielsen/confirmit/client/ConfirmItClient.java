@@ -1,11 +1,10 @@
 package com.nielsen.confirmit.client;
 
-import com.nielsen.confirmit.webservices.authoring.GetProjectListByProjectName;
-import com.nielsen.confirmit.webservices.authoring.GetProjectListByProjectNameResponse;
-import com.nielsen.confirmit.webservices.authoring.GetSurveyStatus;
-import com.nielsen.confirmit.webservices.authoring.GetSurveyStatusResponse;
+import com.nielsen.confirmit.webservices.authoring.*;
 import com.nielsen.confirmit.webservices.logon.LogOnUser;
 import com.nielsen.confirmit.webservices.logon.LogOnUserResponse;
+import com.nielsen.confirmit.webservices.surveydata.GetDataByProject;
+import com.nielsen.confirmit.webservices.surveydata.GetDataByProjectResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -41,4 +40,15 @@ public class ConfirmItClient {
                         (message) -> ((SoapMessage) message).setSoapAction(soapactionEndpoint + "GetProjectListByProjectName"));
     }
 
+    public GetDataByProjectResponse getDataByProject(GetDataByProject getDataByProject) {
+        return (GetDataByProjectResponse) webServiceTemplate.
+                marshalSendAndReceive(webServicesEndpoint + "surveydata.asmx", getDataByProject,
+                        (message) -> ((SoapMessage) message).setSoapAction(soapactionEndpoint + "GetDataByProject"));
+    }
+
+    public GetQuestionnaireResponse getQuestionnaire(GetQuestionnaire getQuestionnaire) {
+        return (GetQuestionnaireResponse) webServiceTemplate.
+                marshalSendAndReceive(webServicesEndpoint + "Authoring.asmx", getQuestionnaire,
+                        (message) -> ((SoapMessage) message).setSoapAction(soapactionEndpoint + "GetQuestionnaire"));
+    }
 }
