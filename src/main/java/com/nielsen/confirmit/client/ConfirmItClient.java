@@ -40,6 +40,12 @@ public class ConfirmItClient {
                         (message) -> ((SoapMessage) message).setSoapAction(soapactionEndpoint + "GetProjectListByProjectName"));
     }
 
+    public GetProjectListResponse getProjectList(GetProjectList getProjectList) {
+        return (GetProjectListResponse) webServiceTemplate.
+                marshalSendAndReceive(webServicesEndpoint + "Authoring.asmx", getProjectList,
+                        (message) -> ((SoapMessage) message).setSoapAction(soapactionEndpoint + "GetProjectList"));
+    }
+
     public GetDataByProjectResponse getDataByProject(GetDataByProject getDataByProject) {
         return (GetDataByProjectResponse) webServiceTemplate.
                 marshalSendAndReceive(webServicesEndpoint + "surveydata.asmx", getDataByProject,

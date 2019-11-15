@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("login")
-public class LoginController {
+@RequestMapping("logon")
+public class LogonController {
 
     @Autowired
     ConfirmItClient confirmItClient;
 
     @PostMapping("/logOnUser")
-    public LogOnUserResponse invokeConfimItClientToLogin(@RequestBody LogOnUser logOnUser) {
+    public LogOnUserResponse invokeConfirmItClientToLogon(@RequestBody LogOnUser logOnUser) {
         return confirmItClient.logOn(logOnUser);
     }
 }

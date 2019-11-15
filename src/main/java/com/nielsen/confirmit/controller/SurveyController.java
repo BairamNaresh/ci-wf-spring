@@ -22,17 +22,7 @@ import org.w3c.dom.Element;
 public class SurveyController {
 
     @Autowired
-    ConfirmItClient confirmItClient;
-
-    @PostMapping("/getSurveyStatus")
-    public GetSurveyStatusResponse getSurveyStatus(@RequestBody GetSurveyStatus getSurveyStatus) {
-        return confirmItClient.getSurveyStatus(getSurveyStatus);
-    }
-
-    @PostMapping("/getProjectListByProjectName")
-    public GetProjectListByProjectNameResponse getProjectListByProjectName(@RequestBody GetProjectListByProjectName getProjectListByProjectName) {
-        return confirmItClient.getProjectListByProjectName(getProjectListByProjectName);
-    }
+    private ConfirmItClient confirmItClient;
 
     @PostMapping("/getDataByProject")
     public GetDataByProjectResponse getDataByProject(@RequestBody GetDataByProject getDataByProject) throws JSONException {
