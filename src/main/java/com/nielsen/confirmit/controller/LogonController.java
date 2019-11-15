@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LogonController {
 
     @Autowired
-    ConfirmItClient confirmItClient;
+    private ConfirmItClient confirmItClient;
 
     @PostMapping("/logOnUser")
     public LogOnUserResponse invokeConfirmItClientToLogon(@RequestBody LogOnUser logOnUser) {
