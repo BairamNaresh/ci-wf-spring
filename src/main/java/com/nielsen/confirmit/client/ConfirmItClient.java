@@ -57,4 +57,9 @@ public class ConfirmItClient {
                 marshalSendAndReceive(webServicesEndpoint + "Authoring.asmx", getQuestionnaire,
                         (message) -> ((SoapMessage) message).setSoapAction(soapactionEndpoint + "GetQuestionnaire"));
     }
+
+    public GetProjectInfoResponse getProjectInfo(GetProjectInfo getProjectInfo){
+        return (GetProjectInfoResponse)webServiceTemplate.marshalSendAndReceive(webServicesEndpoint + "", getProjectInfo,
+                (message) -> ((SoapMessage)message).setSoapAction(soapactionEndpoint + "getProjectInfo"));
+    }
 }

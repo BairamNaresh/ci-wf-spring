@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nielsen.confirmit.client.ConfirmItClient;
+import com.nielsen.confirmit.webservices.authoring.GetProjectInfo;
+import com.nielsen.confirmit.webservices.authoring.GetProjectInfoResponse;
 import com.nielsen.confirmit.webservices.authoring.GetProjectList;
 import com.nielsen.confirmit.webservices.authoring.GetProjectListByProjectName;
 import com.nielsen.confirmit.webservices.authoring.GetProjectListByProjectNameResponse;
@@ -34,5 +36,10 @@ public class AuthoringController {
     @PostMapping("/getProjectList")
     public GetProjectListResponse getProjectList(@RequestBody GetProjectList getProjectList){
         return confirmItClient.getProjectList(getProjectList);
+    }
+
+    @PostMapping("/getProjectInfo")
+    public GetProjectInfoResponse getProjectInfo(@RequestBody GetProjectInfo getProjectInfo){
+        return confirmItClient.getProjectInfo(getProjectInfo);
     }
 }
